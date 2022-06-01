@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:say_hi/screens/home_screen.dart';
 
-import 'screens/my_chats.dart';
 
 void main() {
   runApp(const MyApp());
