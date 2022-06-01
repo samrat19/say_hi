@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:say_hi/screens/home_screen.dart';
+import 'package:say_hi/screens/chat/home_screen.dart';
 import 'package:say_hi/utils/ui_elements.dart';
 
 import '../../utils/authentication_button.dart';
