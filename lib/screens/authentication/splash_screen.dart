@@ -5,6 +5,9 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///todo a stream will be listened
+    ///todo if no login found route to welcome screen
+    ///todo if login found route to home screen
     return Scaffold(
       backgroundColor: Colors.blueGrey[700],
       body: const Center(
