@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:say_hi/screens/home_screen.dart';
 import 'package:say_hi/utils/ui_elements.dart';
 
 import '../../utils/authentication_button.dart';
@@ -10,7 +11,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.blueGrey[700],
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -42,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (_) => const LoginScreen(),
+                      builder: (_) => const HomeScreen(),
                     ),
                   );
                 },

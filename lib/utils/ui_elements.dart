@@ -8,7 +8,7 @@ abstract class UIElements{
         color: Colors.white,
       ),
       filled: true,
-      fillColor: Colors.blueGrey,
+      fillColor: Colors.blueGrey[700],
       border: getBorder(),
       disabledBorder: getBorder(),
       focusedBorder: getBorder(),
