@@ -33,6 +33,11 @@ class PeopleCard extends StatelessWidget {
             ),
             leading: CircleAvatar(
               backgroundColor: Colors.amber[100],
+              child: const Text('J',style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepOrangeAccent,
+              ),),
             ),
           ),
         ),
