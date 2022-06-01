@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'my_chats.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -25,7 +27,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blueGrey[700],
         title: Text(
           title,
           style: const TextStyle(
@@ -35,6 +37,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
+      body: const MyChats(),
     );
   }
 }
