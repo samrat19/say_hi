@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:say_hi/screens/home_screen.dart';
+import 'package:say_hi/screens/authentication/welcome_screen.dart';
 
 
 void main() {
@@ -12,8 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Say Hi',
-      home: HomeScreen(),
+      home: WelcomeScreen(),
     );
   }
 }
