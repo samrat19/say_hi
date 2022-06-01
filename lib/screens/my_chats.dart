@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:say_hi/people_card.dart';
+import 'package:say_hi/utils/people_card.dart';
 
 class MyChats extends StatelessWidget {
   const MyChats({Key? key}) : super(key: key);

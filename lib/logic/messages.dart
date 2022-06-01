@@ -1,4 +1,4 @@
-import 'package:say_hi/message_model.dart';
+import 'package:say_hi/logic/model/message_model.dart';
 
 List<MessageModel> messages = [
   MessageModel(text: 'Hi', name: 'Jack', isByMe: false),

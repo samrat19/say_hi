@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:say_hi/messages.dart';
+import 'package:say_hi/logic/messages.dart';
 
 class ChatScreen extends StatelessWidget {
   final String name;

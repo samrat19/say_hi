@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'chat_screen.dart';
+import '../screens/chat_screen.dart';
 
 class PeopleCard extends StatelessWidget {
   const PeopleCard({Key? key}) : super(key: key);
