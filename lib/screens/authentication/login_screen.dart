@@ -5,6 +5,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        const Expanded(flex: 2,child: SizedBox()),
+        TextFormField(
+          decoration: const InputDecoration(
+            filled: true,
+            fillColor: Colors.blueGrey,
+          ),
+        ),
+      ],
+    );
   }
 }

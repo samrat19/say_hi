@@ -10,8 +10,8 @@ class AuthenticationButton extends StatelessWidget {
     return Center(
       child: Container(
         width: 300,
-        color: Colors.transparent,
         decoration: BoxDecoration(
+          color: Colors.transparent,
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           border: Border.all(color: Colors.white),
         ),
