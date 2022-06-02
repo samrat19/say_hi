@@ -49,9 +49,9 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 chatBody(
                   context,
-                  firebaseUser.uid,
-                  widget.receiverID,
                   widget.name,
+                  receiverID: widget.receiverID,
+                  senderID: firebaseUser.uid,
                 ),
                 chatTextField(
                   context,
@@ -64,14 +64,14 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget chatBody(
-      BuildContext context, String senderID, String receiverID, String name) {
+      BuildContext context,String name, {String? senderID, String? receiverID}) {
     return Container(
       color: Colors.green[200],
       child: StreamBuilder<List<MessageModel>>(
-        stream: DataBaseService().getMessages(senderID, receiverID),
+        stream: DataBaseService().getMessages(receiverID!,senderID!),
         builder:
             (BuildContext context, AsyncSnapshot<List<MessageModel>> snapshot) {
-          if (snapshot.hasData) {
+          if (!snapshot.hasData) {
             return const SizedBox();
           } else if (snapshot.hasData && snapshot.data!.isEmpty) {
             return const SizedBox();
@@ -87,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if (message.isByMe) const Spacer(),
+                      if (message.senderID.trim() == senderID.trim()) const Spacer(),
                       Flexible(
                         flex: 4,
                         child: Container(
@@ -95,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
-                              crossAxisAlignment: message.isByMe
+                              crossAxisAlignment: message.senderID.trim() == senderID.trim()
                                   ? CrossAxisAlignment.end
                                   : CrossAxisAlignment.start,
                               children: [
@@ -116,7 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                       ),
-                      if (!message.isByMe) const Spacer(),
+                      if (message.senderID.trim() != senderID.trim()) const Spacer(),
                     ],
                   ),
                 );
@@ -150,7 +150,6 @@ class _ChatScreenState extends State<ChatScreen> {
               MessageModel message = MessageModel(
                 text: _messageController.text,
                 name: '',
-                isByMe: true,
                 senderID: senderID,
                 receiverID: receiverID,
               );

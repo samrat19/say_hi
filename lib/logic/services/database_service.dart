@@ -14,11 +14,15 @@ class DataBaseService {
         );
   }
 
-  Stream<List<MessageModel>> getMessages(String userID, String receiverID) {
+  Stream<List<MessageModel>> getMessages(String senderID, String receiverID) {
+
+    print(senderID);
+    print(receiverID);
+
     return userCollection
-        .doc(userID)
+        .doc('X5WEMKexmsOIn0UURK93qvyVgSt1')
         .collection('My Messages')
-        .doc(receiverID)
+        .doc('KaljY4iOjOYKax24oy4meCEcvu42')
         .collection('Messages')
         .snapshots()
         .map(
@@ -54,7 +58,7 @@ class DataBaseService {
       await userCollection
           .doc(json['receiver_id'])
           .collection('My Messages')
-          .doc(json['receiver_id'])
+          .doc(json['sender_id'])
           .collection('Messages').add({...json,...{'unique_index':count}});
 
     }catch(e){
