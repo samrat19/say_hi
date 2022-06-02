@@ -1,13 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:say_hi/logic/messages.dart';
+import 'package:provider/provider.dart';
+import 'package:say_hi/logic/model/message_model.dart';
+import 'package:say_hi/logic/services/database_service.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   final String name;
+  final String receiverID;
 
-  const ChatScreen({Key? key, required this.name}) : super(key: key);
+  const ChatScreen({Key? key, required this.name, required this.receiverID})
+      : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[700],
@@ -20,7 +34,7 @@ class ChatScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          name,
+          widget.name,
           style: const TextStyle(
             color: Colors.white,
             letterSpacing: 1.2,
@@ -28,71 +42,126 @@ class ChatScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          chatBody(context),
-          chatTextField(context),
-        ],
-      ),
+      body: firebaseUser == null
+          ? const SizedBox()
+          : Stack(
+              fit: StackFit.expand,
+              children: [
+                chatBody(
+                  context,
+                  firebaseUser.uid,
+                  widget.receiverID,
+                  widget.name,
+                ),
+                chatTextField(
+                  context,
+                  firebaseUser.uid,
+                  widget.receiverID,
+                ),
+              ],
+            ),
     );
   }
 
-  Widget chatBody(BuildContext context) {
+  Widget chatBody(
+      BuildContext context, String senderID, String receiverID, String name) {
     return Container(
       color: Colors.green[200],
-      child: ListView.separated(
-        separatorBuilder: (_,index)=>const SizedBox(height: 1,),
-        itemBuilder: (_,index)=>Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if(messages[index].isByMe)
-                const Spacer(),
-              Flexible(
-                flex: 4,
-                child: Container(
-                  color: Colors.amber[100],
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: messages[index].isByMe?CrossAxisAlignment.end:CrossAxisAlignment.start,
-                      children: [
-                        Text(messages[index].name,style: const TextStyle(
-                          fontSize: 20,
-                        ),),
-                        Text(messages[index].text,style: const TextStyle(
-                          fontSize: 17,
-                        ),),
-                      ],
-                    ),
-                  ),
-                ),
+      child: StreamBuilder<List<MessageModel>>(
+        stream: DataBaseService().getMessages(senderID, receiverID),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<MessageModel>> snapshot) {
+          if (snapshot.hasData) {
+            return const SizedBox();
+          } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+            return const SizedBox();
+          } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            return ListView.separated(
+              separatorBuilder: (_, index) => const SizedBox(
+                height: 1,
               ),
-              if(!messages[index].isByMe)
-                const Spacer(),
-            ],
-          ),
-        ),
-        itemCount: messages.length,
+              itemBuilder: (_, index) {
+                MessageModel message = snapshot.data![index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (message.isByMe) const Spacer(),
+                      Flexible(
+                        flex: 4,
+                        child: Container(
+                          color: Colors.amber[100],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: message.isByMe
+                                  ? CrossAxisAlignment.end
+                                  : CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  name,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                Text(
+                                  message.text,
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (!message.isByMe) const Spacer(),
+                    ],
+                  ),
+                );
+              },
+              itemCount: snapshot.data!.length,
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
       ),
     );
   }
 
-  Widget chatTextField(BuildContext context) {
+  Widget chatTextField(
+      BuildContext context, String senderID, String receiverID) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: TextFormField(
-        style: const TextStyle(fontSize: 17,),
-        decoration: const InputDecoration(
+        controller: _messageController,
+        style: const TextStyle(
+          fontSize: 17,
+        ),
+        decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
           hintText: 'Type your message here.....',
-          contentPadding: EdgeInsets.all(8),
-          suffixIcon: Icon(
-            Icons.send,
-            color: Colors.blueGrey,
+          contentPadding: const EdgeInsets.all(8),
+          suffix: GestureDetector(
+            onTap: () async {
+              MessageModel message = MessageModel(
+                text: _messageController.text,
+                name: '',
+                isByMe: true,
+                senderID: senderID,
+                receiverID: receiverID,
+              );
+              print(message.toJson().toString());
+              await DataBaseService().sendMessage(message.toJson());
+              _messageController.clear();
+            },
+            child: const Icon(
+              Icons.send,
+              color: Colors.blueGrey,
+            ),
           ),
         ),
         keyboardType: TextInputType.multiline,

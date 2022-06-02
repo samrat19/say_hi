@@ -15,7 +15,7 @@ class PeopleCard extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         Navigator.of(context).push(CupertinoPageRoute(
-          builder: (_) => ChatScreen(name: user.userName,),
+          builder: (_) => ChatScreen(name: user.userName,receiverID: user.userID),
         ));
       },
       child: Card(
