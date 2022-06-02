@@ -46,12 +46,13 @@ class AuthService {
       ///
       ///
       String userID = result.user!.uid;
-      try{
-        await userCollection
-            .doc(userID)
-            .set({'user_name': userName, 'email_id': email});
-
-      } catch(e) {
+      try {
+        await userCollection.doc(userID).set({
+          'user_name': userName,
+          'email_id': email,
+          'user_id': userID,
+        });
+      } catch (e) {
         log(e.toString());
       }
 

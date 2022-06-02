@@ -1,17 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:say_hi/logic/services/database_service.dart';
 
 import '../screens/chat/chat_screen.dart';
 
 class PeopleCard extends StatelessWidget {
-  const PeopleCard({Key? key}) : super(key: key);
+
+  final UserModel user;
+
+  const PeopleCard({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         Navigator.of(context).push(CupertinoPageRoute(
-          builder: (_) => const ChatScreen(name: 'Jack',),
+          builder: (_) => ChatScreen(name: user.userName,),
         ));
       },
       child: Card(
@@ -23,9 +27,9 @@ class PeopleCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            title: const Text(
-              'Jack',
-              style: TextStyle(
+            title: Text(
+              user.userName,
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
                 letterSpacing: 1.4,
@@ -33,7 +37,7 @@ class PeopleCard extends StatelessWidget {
             ),
             leading: CircleAvatar(
               backgroundColor: Colors.amber[100],
-              child: const Text('J',style: TextStyle(
+              child: Text(user.userName[0].toUpperCase(),style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.deepOrangeAccent,

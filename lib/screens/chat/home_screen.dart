@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:say_hi/logic/services/auth_service.dart';
-import 'package:say_hi/screens/authentication/splash_screen.dart';
 
 import 'my_chats.dart';
 

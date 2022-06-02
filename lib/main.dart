@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:say_hi/logic/services/auth_service.dart';
+import 'package:say_hi/logic/services/database_service.dart';
 import 'package:say_hi/screens/authentication/splash_screen.dart';
 
 setUpServiceLocator() {
@@ -19,10 +20,15 @@ Future<void> main() async {
         Provider<AuthService>(
           create: (_) => AuthService(),
         ),
+        Provider(create: (_) => DataBaseService()),
         StreamProvider(
           create: (context) => context.read<AuthService>().userAuthStream,
           initialData: null,
         ),
+        StreamProvider(
+          create: (_) => _.read<DataBaseService>().getUsers(),
+          initialData: null,
+        )
       ],
       child: MyApp(),
     ),
