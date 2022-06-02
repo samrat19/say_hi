@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod:
+  get_it:
   firebase_core:
   firebase_auth:
 

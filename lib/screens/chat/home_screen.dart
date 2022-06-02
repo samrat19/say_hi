@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:say_hi/logic/services/auth_service.dart';
 
 import 'my_chats.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>{
+
+
+  AuthService get authService => GetIt.I<AuthService>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ()async{
-        await AuthService().signOut();
+        await authService.signOut();
       },
       child: Scaffold(
         appBar: AppBar(

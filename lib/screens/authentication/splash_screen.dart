@@ -1,23 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:say_hi/logic/services/auth_service.dart';
-import 'package:say_hi/screens/authentication/login_screen.dart';
+import 'package:get_it/get_it.dart';
 import 'package:say_hi/screens/authentication/welcome_screen.dart';
 import 'package:say_hi/screens/chat/home_screen.dart';
 
-class SplashScreen extends ConsumerWidget {
+import '../../logic/services/auth_service.dart';
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef widgetRef) {
-    ///todo a stream will be listened
-    //final authStream = widgetRef.watch(authProvider);
+  State<SplashScreen> createState() => _SplashScreenState();
+}
 
+class _SplashScreenState extends State<SplashScreen> {
+
+  AuthService get authService => GetIt.I<AuthService>();
+
+  @override
+  Widget build(BuildContext context) {
+    ///todo a stream will be listened
     ///todo if no login found route to welcome screen
     ///todo if login found route to home screen
     return StreamBuilder<User?>(
-      stream: AuthService().userAuthStream,
+      stream: authService.userAuthStream,
       builder: (BuildContext context, AsyncSnapshot<User?> snapshot){
         if(snapshot.hasError){
           return Scaffold(

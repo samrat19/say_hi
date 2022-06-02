@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:say_hi/logic/services/auth_service.dart';
 import 'package:say_hi/screens/chat/home_screen.dart';
 import 'package:say_hi/utils/ui_elements.dart';
@@ -18,6 +19,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  AuthService get authService => GetIt.I<AuthService>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +56,19 @@ class _LoginScreenState extends State<LoginScreen> {
               child: SizedBox(),
             ),
             GestureDetector(
-                onTap: () async {
-                  String value = await AuthService().login(
+                onTap: () async{
+                  var value = await authService.login(
                     _emailController.text,
                     _passwordController.text,
                   );
-                  log(value);
+                  if (value == '1') {
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                    Navigator.of(context).pushReplacement(
+                      CupertinoPageRoute(
+                        builder: (_) => const HomeScreen(),
+                      ),
+                    );
+                  }
                 },
                 child: const AuthenticationButton(title: 'Sign In')),
             const Expanded(
