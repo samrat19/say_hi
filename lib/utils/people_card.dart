@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:say_hi/logic/services/database_service.dart';
 
+import '../logic/model/user_model.dart';
 import '../screens/chat/chat_screen.dart';
 
 class PeopleCard extends StatelessWidget {

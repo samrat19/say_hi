@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:say_hi/utils/people_card.dart';
 
-import '../../logic/services/database_service.dart';
+import '../../logic/model/user_model.dart';
 
 class MyChats extends StatelessWidget {
   const MyChats({Key? key}) : super(key: key);
