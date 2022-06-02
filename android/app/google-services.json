@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "168767825506",
+    "project_id": "say-hi-b7511",
+    "storage_bucket": "say-hi-b7511.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168767825506:android:de83a5a5b137cb6bbed33b",
+        "android_client_info": {
+          "package_name": "com.example.say_hi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168767825506-1dktirnpppbv8ncbfm22b6rh2agoo9at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsm1ZGtyao_FG5Q06I2-EwW_Hz4HVkp80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168767825506-1dktirnpppbv8ncbfm22b6rh2agoo9at.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
