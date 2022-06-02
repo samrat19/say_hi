@@ -1,12 +1,15 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 final authProvider = StreamProvider((ref) => AuthService().userAuthStream);
-
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final userCollection = FirebaseFirestore.instance.collection('Users');
 
   ///a stream which will be listened to get user auth state
   ///
@@ -30,17 +33,31 @@ class AuthService {
     }
   }
 
-
   ///register an user
   ///get user ID
   ///create a user document
   ///save the user
-  Future<String> register(String userName,String email, String password) async {
+  Future<String> register(
+      String userName, String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      var result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      ///todo create user document
+      ///
+      ///
+      String userID = result.user!.uid;
+      try{
+        await userCollection
+            .doc(userID)
+            .set({'user_name': userName, 'email_id': email});
+
+      } catch(e) {
+        log(e.toString());
+      }
+
       return '1';
     } on FirebaseAuthException catch (e) {
       return e.message!;
@@ -49,7 +66,7 @@ class AuthService {
     }
   }
 
-  signOut()async{
+  signOut() async {
     await _auth.signOut();
   }
 }
