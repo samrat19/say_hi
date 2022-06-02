@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:say_hi/screens/authentication/welcome_screen.dart';
 import 'package:say_hi/screens/chat/home_screen.dart';
 
@@ -17,14 +18,20 @@ class CheckStatus extends StatefulWidget {
 }
 
 class _CheckStatusState extends State<CheckStatus> {
-  AuthService get authService => GetIt.I<AuthService>();
+
 
   @override
   Widget build(BuildContext context) {
     ///todo a stream will be listened
     ///todo if no login found route to welcome screen
     ///todo if login found route to home screen
-    return StreamBuilder<User?>(
+    ///
+    ///
+    final firebaseUser = context.watch<User?>();
+
+    return firebaseUser == null ? const WelcomeScreen() : const HomeScreen();
+
+    /*return StreamBuilder<User?>(
       stream: authService.userAuthStream,
       builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
         if (snapshot.hasError) {
@@ -59,7 +66,7 @@ class _CheckStatusState extends State<CheckStatus> {
           );
         }
       },
-    );
+    );*/
   }
 }
 

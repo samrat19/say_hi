@@ -2,9 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final authProvider = StreamProvider((ref) => AuthService().userAuthStream);
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -14,7 +11,7 @@ class AuthService {
   ///a stream which will be listened to get user auth state
   ///
   ///
-  Stream<User?> get userAuthStream => _auth.authStateChanges();
+  Stream<User?> get userAuthStream => _auth.idTokenChanges();
 
   ///login an user
   ///

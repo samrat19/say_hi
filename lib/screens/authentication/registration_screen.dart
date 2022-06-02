@@ -71,11 +71,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   var value = await authService.register(nameController.text,emailController.text, passwordController.text);
                   if(value == '1') {
                     Navigator.popUntil(context, (route) => route.isFirst);
-                    Navigator.of(context).push(
+                    /*Navigator.of(context).push(
                       CupertinoPageRoute(
                         builder: (_) => const HomeScreen(),
                       ),
-                    );
+                    );*/
                   }
                 },
                 child: const AuthenticationButton(title: 'Sign Up')),

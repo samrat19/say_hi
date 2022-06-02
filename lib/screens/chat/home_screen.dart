@@ -21,12 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () async {
         await authService.signOut();
-        Navigator.popUntil(context, (route) => route.isFirst);
+        /*Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.of(context).pushReplacement(
           CupertinoPageRoute(
             builder: (_) => const CheckStatus(),
           ),
-        );
+        );*/
       },
       child: Scaffold(
         appBar: AppBar(

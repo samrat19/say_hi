@@ -63,11 +63,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                   if (value == '1') {
                     Navigator.popUntil(context, (route) => route.isFirst);
-                    Navigator.of(context).pushReplacement(
+                    /*Navigator.of(context).pushReplacement(
                       CupertinoPageRoute(
                         builder: (_) => const HomeScreen(),
                       ),
-                    );
+                    );*/
                   }
                 },
                 child: const AuthenticationButton(title: 'Sign In')),

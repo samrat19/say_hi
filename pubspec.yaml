@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_riverpod:
+  provider:
   get_it:
   firebase_core:
   firebase_auth:
