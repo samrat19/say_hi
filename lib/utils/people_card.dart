@@ -21,7 +21,7 @@ class PeopleCard extends StatelessWidget {
       child: Card(
         color: Colors.indigo.withOpacity(0.1),
         elevation: 4,
-        margin: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(8),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Padding(

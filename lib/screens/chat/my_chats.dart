@@ -24,6 +24,7 @@ class MyChats extends StatelessWidget {
             if(snapshot.data!.isNotEmpty){
               List<UserModel> users = snapshot.data!;
               return ListView.builder(
+                shrinkWrap: true,
                 itemBuilder: (_, index) => PeopleCard(
                   user: users[index],
                 ),
