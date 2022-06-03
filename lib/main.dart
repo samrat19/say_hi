@@ -20,15 +20,10 @@ Future<void> main() async {
         Provider<AuthService>(
           create: (_) => AuthService(),
         ),
-        Provider(create: (_) => DataBaseService()),
         StreamProvider(
           create: (context) => context.read<AuthService>().userAuthStream,
           initialData: null,
         ),
-        StreamProvider(
-          create: (_) => _.read<DataBaseService>().getUsers(),
-          initialData: null,
-        )
       ],
       child: MyApp(),
     ),

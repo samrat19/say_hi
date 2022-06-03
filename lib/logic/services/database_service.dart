@@ -6,8 +6,8 @@ import '../model/user_model.dart';
 class DataBaseService {
   final userCollection = FirebaseFirestore.instance.collection('Users');
 
-  Stream<List<UserModel>> getUsers() {
-    return userCollection.snapshots().map(
+  Stream<List<UserModel>> getUsers(String userID) {
+    return userCollection.where('user_id', isNotEqualTo: userID).snapshots().map(
           (snapShot) => snapShot.docs
               .map((document) => UserModel.fromJson(document.data()))
               .toList(),
@@ -20,10 +20,10 @@ class DataBaseService {
     print(receiverID);
 
     return userCollection
-        .doc('X5WEMKexmsOIn0UURK93qvyVgSt1')
+        .doc(senderID)
         .collection('My Messages')
-        .doc('KaljY4iOjOYKax24oy4meCEcvu42')
-        .collection('Messages')
+        .doc(receiverID)
+        .collection('Messages').orderBy('unique_index',descending: false)
         .snapshots()
         .map(
           (event) =>
@@ -43,8 +43,7 @@ class DataBaseService {
       int count = 0;
 
       if(hasDoc.exists){
-        count = await collectionRef
-            .collection('Messages').snapshots().length;
+        count = hasDoc.data()!['unique_index'];
       }else{
         count = 0;
       }
@@ -60,6 +59,20 @@ class DataBaseService {
           .collection('My Messages')
           .doc(json['sender_id'])
           .collection('Messages').add({...json,...{'unique_index':count}});
+
+      try{
+        await userCollection
+            .doc(json['sender_id'])
+            .collection('My Messages')
+            .doc(json['receiver_id']).set({'unique_index': count+1});
+
+        await userCollection
+            .doc(json['receiver_id'])
+            .collection('My Messages')
+            .doc(json['sender_id']).set({'unique_index': count+1});
+      }catch(e){
+        print(e.toString());
+      }
 
     }catch(e){
       print(e.toString());

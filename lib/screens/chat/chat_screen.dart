@@ -94,24 +94,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           color: Colors.amber[100],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: message.senderID.trim() == senderID.trim()
-                                  ? CrossAxisAlignment.end
-                                  : CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  name,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                Text(
-                                  message.text,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              message.text,
+                              style: const TextStyle(
+                                fontSize: 17,
+                              ),
                             ),
                           ),
                         ),
