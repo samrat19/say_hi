@@ -19,7 +19,7 @@ class PeopleCard extends StatelessWidget {
         ));
       },
       child: Card(
-        color: Colors.indigo.withOpacity(0.1),
+        color: Colors.blueGrey,
         elevation: 4,
         margin: const EdgeInsets.all(8),
         shape: const RoundedRectangleBorder(
@@ -36,11 +36,11 @@ class PeopleCard extends StatelessWidget {
               ),
             ),
             leading: CircleAvatar(
-              backgroundColor: Colors.amber[100],
+              backgroundColor: Colors.blueGrey[200],
               child: Text(user.userName[0].toUpperCase(),style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepOrangeAccent,
+                color: Colors.indigo,
               ),),
             ),
           ),
