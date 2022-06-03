@@ -12,6 +12,9 @@ class PeopleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double width = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: (){
         Navigator.of(context).push(CupertinoPageRoute(
@@ -21,24 +24,24 @@ class PeopleCard extends StatelessWidget {
       child: Card(
         color: Colors.blueGrey,
         elevation: 4,
-        margin: const EdgeInsets.all(8),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12))),
+        margin: EdgeInsets.all(width * 8 / 375),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(width * 12 / 375))),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(width * 8 / 375),
           child: ListTile(
             title: Text(
               user.userName,
-              style: const TextStyle(
-                fontSize: 18,
+              style: TextStyle(
+                fontSize: width * 18 / 375,
                 color: Colors.white,
                 letterSpacing: 1.4,
               ),
             ),
             leading: CircleAvatar(
               backgroundColor: Colors.blueGrey[200],
-              child: Text(user.userName[0].toUpperCase(),style: const TextStyle(
-                fontSize: 22,
+              child: Text(user.userName[0].toUpperCase(),style: TextStyle(
+                fontSize: width * 22 / 375,
                 fontWeight: FontWeight.bold,
                 color: Colors.indigo,
               ),),

@@ -9,28 +9,31 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.blueGrey[700],
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(width * 10 / 375),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 70,
+            SizedBox(
+              height: width * 65 / 375,
             ),
-            const Text(
+            Text(
               'Welcome to',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 60,
+                fontSize: width * 60 / 375,
               ),
             ),
-            const Text(
+            Text(
               'Say Hi',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 80,
+                fontSize: width * 80 / 375,
               ),
             ),
             const Expanded(flex: 3, child: SizedBox()),

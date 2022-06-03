@@ -23,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
 
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.blueGrey[400],
       body: firebaseUser == null
@@ -34,28 +36,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (_, AsyncSnapshot<UserModel> snapShot) {
                   if (snapShot.hasData && snapShot.data != null) {
                     return Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(width * 10 / 375),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Hello',
                               style:
-                                  TextStyle(fontSize: 80, color: Colors.white),
+                                  TextStyle(fontSize: width * 80 / 375, color: Colors.white),
                             ),
                             Text(
                               snapShot.data!.userName,
-                              style: const TextStyle(
-                                fontSize: 45,
+                              style: TextStyle(
+                                fontSize: width * 45 / 375,
                                 color: Colors.white,
                               ),
                             ),
-                            const SizedBox(
-                              height: 50,
+                            SizedBox(
+                              height: width * 50 / 375,
                             ),
                             const Expanded(flex: 2, child: MyChats()),
-                            const SizedBox(
-                              height: 30,
+                            SizedBox(
+                              height: width * 30 / 375,
                             ),
                             GestureDetector(
                                 onTap: ()async{

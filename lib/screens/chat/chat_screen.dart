@@ -22,6 +22,8 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
 
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[700],
@@ -35,10 +37,10 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         title: Text(
           widget.name,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
             letterSpacing: 1.2,
-            fontSize: 22,
+            fontSize: width * 22 / 375,
           ),
         ),
       ),
@@ -50,6 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 chatBody(
                   context,
                   widget.name,
+                  width,
                   receiverID: widget.receiverID,
                   senderID: firebaseUser.uid,
                 ),
@@ -57,6 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   context,
                   firebaseUser.uid,
                   widget.receiverID,
+                  width,
                 ),
               ],
             ),
@@ -64,7 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget chatBody(
-      BuildContext context,String name, {String? senderID, String? receiverID}) {
+      BuildContext context,String name, double width,{String? senderID, String? receiverID,}) {
     return Container(
       color: Colors.green[200],
       child: StreamBuilder<List<MessageModel>>(
@@ -83,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
               itemBuilder: (_, index) {
                 MessageModel message = snapshot.data![index];
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(width * 6 / 375),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -93,11 +97,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         child: Container(
                           color: Colors.amber[100],
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(width * 6 / 375),
                             child: Text(
                               message.text,
-                              style: const TextStyle(
-                                fontSize: 17,
+                              style: TextStyle(
+                                fontSize: width * 16 / 375,
                               ),
                             ),
                           ),
@@ -119,19 +123,19 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget chatTextField(
-      BuildContext context, String senderID, String receiverID) {
+      BuildContext context, String senderID, String receiverID, double width) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: TextFormField(
         controller: _messageController,
-        style: const TextStyle(
-          fontSize: 17,
+        style: TextStyle(
+          fontSize: width * 15 / 375,
         ),
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
           hintText: 'Type your message here.....',
-          contentPadding: const EdgeInsets.all(8),
+          contentPadding: EdgeInsets.all(width * 6 / 375),
           suffix: GestureDetector(
             onTap: () async {
               MessageModel message = MessageModel(

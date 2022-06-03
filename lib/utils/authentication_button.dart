@@ -7,24 +7,27 @@ class AuthenticationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double width = MediaQuery.of(context).size.width;
+
     return Center(
       child: Container(
-        width: 300,
+        width: width * 300 / 375,
         decoration: BoxDecoration(
           color: Colors.transparent,
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(width * 12 / 375)),
           border: Border.all(color: Colors.white),
         ),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8,
+            padding: EdgeInsets.symmetric(
+              vertical: width * 8 / 375,
             ),
             child: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 40,
+                fontSize: width * 40 / 375,
               ),
             ),
           ),
