@@ -18,6 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   AuthService get authService => GetIt.I<AuthService>();
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,11 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == '1') {
                     if (!mounted) return;
                     Navigator.popUntil(context, (route) => route.isFirst);
-                    /*Navigator.of(context).pushReplacement(
-                      CupertinoPageRoute(
-                        builder: (_) => const HomeScreen(),
-                      ),
-                    );*/
                   }
                 },
                 child: const AuthenticationButton(title: 'Sign In')),
