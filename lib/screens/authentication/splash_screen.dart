@@ -3,12 +3,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:say_hi/screens/authentication/welcome_screen.dart';
 import 'package:say_hi/screens/chat/home_screen.dart';
-
-import '../../logic/services/auth_service.dart';
 
 class CheckStatus extends StatefulWidget {
   const CheckStatus({Key? key}) : super(key: key);

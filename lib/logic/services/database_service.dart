@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:say_hi/logic/model/message_model.dart';
 
@@ -25,9 +27,6 @@ class DataBaseService {
   }
 
   Stream<List<MessageModel>> getMessages(String senderID, String receiverID) {
-    print(senderID);
-    print(receiverID);
-
     return userCollection
         .doc(senderID)
         .collection('My Messages')
@@ -79,10 +78,10 @@ class DataBaseService {
             .collection('My Messages')
             .doc(json['sender_id']).set({'unique_index': count + 1});
       } catch (e) {
-        print(e.toString());
+        log(e.toString());
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 }

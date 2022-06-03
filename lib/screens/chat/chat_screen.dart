@@ -144,7 +144,6 @@ class _ChatScreenState extends State<ChatScreen> {
                 senderID: senderID,
                 receiverID: receiverID,
               );
-              print(message.toJson().toString());
               await DataBaseService().sendMessage(message.toJson());
               _messageController.clear();
             },

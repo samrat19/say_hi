@@ -12,9 +12,6 @@ class MessageModel {
   });
 
   factory MessageModel.fromJSON(Map<String, dynamic> json) {
-
-    print('Data: $json');
-
     return MessageModel(
       text: json['text'],
       name: json['name'],

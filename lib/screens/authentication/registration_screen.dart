@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:say_hi/logic/services/auth_service.dart';
-import 'package:say_hi/screens/chat/home_screen.dart';
 
 import '../../utils/authentication_button.dart';
 import '../../utils/ui_elements.dart';
@@ -70,6 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onTap: () async{
                   var value = await authService.register(nameController.text,emailController.text, passwordController.text);
                   if(value == '1') {
+                    if (!mounted) return;
                     Navigator.popUntil(context, (route) => route.isFirst);
                     /*Navigator.of(context).push(
                       CupertinoPageRoute(
